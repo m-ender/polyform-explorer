@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyformExplorer", "PolyformExplorer\PolyformExplorer.csproj", "{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68A134CA-6D31-452F-8DD1-A43A191B8665}
+	EndGlobalSection
+EndGlobal
