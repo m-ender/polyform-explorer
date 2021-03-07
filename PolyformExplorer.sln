@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyformExplorer", "PolyformExplorer\PolyformExplorer.csproj", "{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolyformExplorer", "PolyformExplorer\PolyformExplorer.csproj", "{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyformExplorerTests", "PolyformExplorerTests\PolyformExplorerTests.csproj", "{7C88C726-E09F-4A40-92D1-4992949960ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B5CB71D-77A2-44AE-8BD0-4B2D7D8B4A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C88C726-E09F-4A40-92D1-4992949960ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C88C726-E09F-4A40-92D1-4992949960ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C88C726-E09F-4A40-92D1-4992949960ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C88C726-E09F-4A40-92D1-4992949960ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
