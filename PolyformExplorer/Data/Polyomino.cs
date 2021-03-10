@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
@@ -30,8 +31,31 @@ namespace PolyformExplorer.Data
 
         public Polyomino(IEnumerable<IntVector2> cells)
         {
+            if (!AreCellsContiguous(cells))
+                throw new ArgumentException("Cells must be orthogonally contiguous", nameof(cells));
             IEnumerable<IntVector2> normalisedCells = Normalize(cells);
             this.cells = ImmutableHashSet.CreateRange(normalisedCells);
+        }
+
+        // Implemented via BFT
+        private bool AreCellsContiguous(IEnumerable<IntVector2> cells)
+        {
+            HashSet<IntVector2> remainingCells = new(cells);
+            Queue<IntVector2> cellQueue = new();
+
+            IntVector2 firstCell = remainingCells.First();
+            remainingCells.Remove(firstCell);
+            cellQueue.Enqueue(firstCell);
+
+            while (cellQueue.Count > 0)
+            {
+                IntVector2 cell = cellQueue.Dequeue();
+                foreach (IntVector2 neighbor in cell.GetNeighbors())
+                    if (remainingCells.Remove(neighbor))
+                        cellQueue.Enqueue(neighbor);
+            }
+
+            return remainingCells.Count == 0;
         }
 
         private IEnumerable<IntVector2> Normalize(IEnumerable<IntVector2> cells)

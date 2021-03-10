@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace PolyformExplorer.Data.Tests
@@ -54,6 +55,20 @@ namespace PolyformExplorer.Data.Tests
             Assert.That(polyomino.Order, Is.EqualTo(3));
             foreach (IntVector2 cell in expectedCells)
                 Assert.That(polyomino.Contains(cell));
+        }
+
+        [Test]
+        public void Polyomino_cells_must_be_orthogonally_contiguous()
+        {
+            List<IntVector2> discontiguousCells = new()
+            {
+                new(1, 0),
+                new(0, 1),
+            };
+
+            Assert.That(
+                () => new Polyomino(discontiguousCells), 
+                Throws.TypeOf<ArgumentException>());
         }
     }
 }

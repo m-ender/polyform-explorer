@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PolyformExplorer.Data
 {
+    [DebuggerDisplay("({X}, {Y})")]
     internal record IntVector2
     {
         public int X { get; init; }
@@ -59,5 +62,19 @@ namespace PolyformExplorer.Data
 
         public int ManhattanDistance(IntVector2 other)
             => Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
+
+        public IEnumerable<IntVector2> GetNeighbors()
+        {
+            return new List<IntVector2>()
+            {
+                this + Right,
+                this + Up,
+                this + Left,
+                this + Down,
+            };
+        }
+
+        public override string ToString()
+            => $"({X}, {Y})";
     }
 }

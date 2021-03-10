@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace PolyformExplorer.Data.Tests
 {
@@ -7,7 +8,7 @@ namespace PolyformExplorer.Data.Tests
         [Test]
         public void Default_constructor_returns_origin()
         {
-            var vector = new IntVector2();
+            IntVector2 vector = new();
 
             Assert.That(vector.X, Is.Zero);
             Assert.That(vector.Y, Is.Zero);
@@ -19,7 +20,7 @@ namespace PolyformExplorer.Data.Tests
             const int x = -2;
             const int y = 4;
 
-            var vector = new IntVector2(x, y);
+            IntVector2 vector = new(x, y);
 
             Assert.That(vector.X, Is.EqualTo(x));
             Assert.That(vector.Y, Is.EqualTo(y));
@@ -28,10 +29,10 @@ namespace PolyformExplorer.Data.Tests
         [Test]
         public void Vectors_implement_value_equality()
         {
-            var vectorA1 = new IntVector2(-2, 4);
-            var vectorA2 = new IntVector2(-2, 4);
-            var vectorB = new IntVector2(-1, 4);
-            var vectorC = new IntVector2(-2, 3);
+            IntVector2 vectorA1 = new(-2, 4);
+            IntVector2 vectorA2 = new(-2, 4);
+            IntVector2 vectorB = new(-1, 4);
+            IntVector2 vectorC = new(-2, 3);
 
             Assert.That(vectorA1, Is.EqualTo(vectorA2));
             Assert.That(vectorA1, Is.Not.EqualTo(vectorB));
@@ -53,7 +54,7 @@ namespace PolyformExplorer.Data.Tests
         [Test]
         public void Test_deconstruction()
         {
-            var vector = new IntVector2(-2, 4);
+            IntVector2 vector = new(-2, 4);
             (int x, int y) = vector;
 
             Assert.That(x, Is.EqualTo(vector.X));
@@ -82,10 +83,10 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, 2, 3, -4)]
         public void Test_addition(int x1, int x2, int y1, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
-            var expected = new IntVector2(x1 + x2, y1 + y2);
+            IntVector2 expected = new(x1 + x2, y1 + y2);
 
             Assert.That(vectorA + vectorB, Is.EqualTo(expected));
         }
@@ -96,10 +97,10 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, 2, 3, -4)]
         public void Test_subtraction(int x1, int x2, int y1, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
-            var expected = new IntVector2(x1 - x2, y1 - y2);
+            IntVector2 expected = new(x1 - x2, y1 - y2);
 
             Assert.That(vectorA - vectorB, Is.EqualTo(expected));
         }
@@ -110,10 +111,10 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, 2, 3, -4)]
         public void Test_multiplication(int x1, int x2, int y1, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
-            var expected = new IntVector2(x1 * x2, y1 * y2);
+            IntVector2 expected = new(x1 * x2, y1 * y2);
 
             Assert.That(vectorA * vectorB, Is.EqualTo(expected));
         }
@@ -127,10 +128,10 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-4, 3, 2, -1)]
         public void Test_division(int x1, int x2, int y1, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
-            var expected = new IntVector2(x1 / x2, y1 / y2);
+            IntVector2 expected = new(x1 / x2, y1 / y2);
 
             Assert.That(vectorA / vectorB, Is.EqualTo(expected));
         }
@@ -141,9 +142,9 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, 2, 3)]
         public void Test_scalar_multiplication(int x, int y, int s)
         {
-            var vectorA = new IntVector2(x, y);
+            IntVector2 vectorA = new(x, y);
 
-            var expected = new IntVector2(x * s, y * s);
+            IntVector2 expected = new(x * s, y * s);
 
             Assert.That(vectorA * s, Is.EqualTo(expected));
             Assert.That(s * vectorA, Is.EqualTo(expected));
@@ -157,10 +158,10 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-3, 2, 1)]
         public void Test_scalar_division(int x, int y, int s)
         {
-            var vectorA = new IntVector2(x, y);
+            IntVector2 vectorA = new(x, y);
 
-            var expectedA = new IntVector2(x / s, y / s);
-            var expectedB = new IntVector2(s / x, s / y);
+            IntVector2 expectedA = new(x / s, y / s);
+            IntVector2 expectedB = new(s / x, s / y);
 
             Assert.That(vectorA / s, Is.EqualTo(expectedA));
             Assert.That(s / vectorA, Is.EqualTo(expectedB));
@@ -173,8 +174,8 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, -2, -3, 4, ExpectedResult = -5)]
         public int Test_dot_product(int x1, int y1, int x2, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
             return vectorA.Dot(vectorB);
         }
@@ -186,10 +187,26 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(-1, -2, -3, 4, ExpectedResult = 8)]
         public int Test_Manhattan_distance(int x1, int y1, int x2, int y2)
         {
-            var vectorA = new IntVector2(x1, y1);
-            var vectorB = new IntVector2(x2, y2);
+            IntVector2 vectorA = new(x1, y1);
+            IntVector2 vectorB = new(x2, y2);
 
             return vectorA.ManhattanDistance(vectorB);
+        }
+
+        [Test]
+        public void GetNeighbors_returns_orthogonally_adjacent_vectors()
+        {
+            IntVector2 vector = new(3, 4);
+
+            List<IntVector2> expectedNeighbors = new()
+            {
+                new(4, 4),
+                new(3, 5),
+                new(2, 4),
+                new(3, 3),
+            };
+
+            Assert.That(vector.GetNeighbors(), Is.EquivalentTo(expectedNeighbors));
         }
     }
 }
