@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PolyformExplorer.Data
 {
-    internal record Polyomino
+    internal sealed record Polyomino : IEquatable<Polyomino>
     {
         public enum Symmetry
         {
@@ -19,14 +19,14 @@ namespace PolyformExplorer.Data
             D4,
         };
 
-        private readonly ImmutableHashSet<IntVector2> cells;
+        private readonly ImmutableSortedSet<IntVector2> cells;
 
         public int Order => cells.Count;
 
         public Polyomino()
         {
             IntVector2 origin = new(0, 0);
-            cells = ImmutableHashSet.Create(origin);
+            cells = ImmutableSortedSet.Create(new IntVector2Comparer(), origin);
         }
 
         public Polyomino(IEnumerable<IntVector2> cells)
@@ -35,7 +35,7 @@ namespace PolyformExplorer.Data
                 throw new ArgumentException("Cells must be orthogonally contiguous", nameof(cells));
 
             IEnumerable<IntVector2> normalizedCells = Normalize(cells);
-            this.cells = ImmutableHashSet.CreateRange(normalizedCells);
+            this.cells = ImmutableSortedSet.CreateRange(new IntVector2Comparer(), normalizedCells);
         }
 
         // Implemented via BFT
@@ -71,5 +71,19 @@ namespace PolyformExplorer.Data
 
         public bool Contains(IntVector2 pos)
             => cells.Contains(pos);
+
+        public bool Equals(Polyomino? other)
+            => other is not null && cells.SetEquals(other.cells);
+
+        public override int GetHashCode()
+        {
+            int hash = 13;
+            hash = hash * 7 + cells.Count.GetHashCode();
+
+            foreach (IntVector2 cell in cells)
+                hash = hash * 7 + cell.GetHashCode();
+
+            return hash;
+        }    
     }
 }

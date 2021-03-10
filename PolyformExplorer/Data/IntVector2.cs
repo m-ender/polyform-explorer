@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace PolyformExplorer.Data
 {
     [DebuggerDisplay("({X}, {Y})")]
-    internal record IntVector2
+    internal sealed record IntVector2
     {
         public int X { get; init; }
         public int Y { get; init; }

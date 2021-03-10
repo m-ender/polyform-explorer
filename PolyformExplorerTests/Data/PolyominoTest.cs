@@ -70,5 +70,60 @@ namespace PolyformExplorer.Data.Tests
                 () => new Polyomino(discontiguousCells), 
                 Throws.TypeOf<ArgumentException>());
         }
+
+        [Test]
+        public void Polyominoes_implement_deep_value_equality()
+        {
+            Polyomino jTetromino1 = new(new List<IntVector2>()
+            {
+                new(0, 0), new(1, 0), new(1, 1), new(1, 2),
+            });
+
+            Polyomino jTetromino2 = new(new List<IntVector2>()
+            {
+                new(2, 2), new(2, 3), new(2, 4), new(1, 2),
+            });
+
+            Polyomino lTetromino = new(new List<IntVector2>()
+            {
+                new(0, 0), new(1, 0), new(0, 1), new(0, 2),
+            });
+
+            Assert.That(jTetromino1, Is.EqualTo(jTetromino2));
+            Assert.That(jTetromino1, Is.Not.EqualTo(lTetromino));
+            Assert.That(jTetromino2, Is.Not.EqualTo(lTetromino));
+        }
+
+        [Test]
+        public void Hash_code_corresponds_to_deep_value()
+        {
+            Polyomino jTetromino1 = new(new List<IntVector2>()
+            {
+                new(0, 0), new(1, 0), new(1, 1), new(1, 2),
+            });
+
+            Polyomino jTetromino2 = new(new List<IntVector2>()
+            {
+                new(2, 2), new(2, 3), new(2, 4), new(1, 2),
+            });
+
+            Polyomino lTetromino = new(new List<IntVector2>()
+            {
+                new(0, 0), new(1, 0), new(0, 1), new(0, 2),
+            });
+
+            Assert.That(jTetromino1.GetHashCode(), Is.EqualTo(jTetromino2.GetHashCode()));
+            Assert.That(jTetromino1.GetHashCode(), Is.Not.EqualTo(lTetromino.GetHashCode()));
+            Assert.That(jTetromino2.GetHashCode(), Is.Not.EqualTo(lTetromino.GetHashCode()));
+        }
+
+        [Test]
+        public void Test_clockwise_rotation()
+        {
+            Polyomino jTetromino = new(new List<IntVector2>()
+            {
+                new(0, 0), new(1, 0), new(1, 1), new(1, 2),
+            });
+        }
     }
 }
