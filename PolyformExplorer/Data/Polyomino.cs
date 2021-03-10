@@ -25,7 +25,7 @@ namespace PolyformExplorer.Data
 
         public Polyomino()
         {
-            IntVector2 origin = new IntVector2(0, 0);
+            IntVector2 origin = new(0, 0);
             cells = ImmutableHashSet.Create(origin);
         }
 
@@ -33,12 +33,13 @@ namespace PolyformExplorer.Data
         {
             if (!AreCellsContiguous(cells))
                 throw new ArgumentException("Cells must be orthogonally contiguous", nameof(cells));
-            IEnumerable<IntVector2> normalisedCells = Normalize(cells);
-            this.cells = ImmutableHashSet.CreateRange(normalisedCells);
+
+            IEnumerable<IntVector2> normalizedCells = Normalize(cells);
+            this.cells = ImmutableHashSet.CreateRange(normalizedCells);
         }
 
         // Implemented via BFT
-        private bool AreCellsContiguous(IEnumerable<IntVector2> cells)
+        private static bool AreCellsContiguous(IEnumerable<IntVector2> cells)
         {
             HashSet<IntVector2> remainingCells = new(cells);
             Queue<IntVector2> cellQueue = new();
@@ -58,7 +59,7 @@ namespace PolyformExplorer.Data
             return remainingCells.Count == 0;
         }
 
-        private IEnumerable<IntVector2> Normalize(IEnumerable<IntVector2> cells)
+        private static IEnumerable<IntVector2> Normalize(IEnumerable<IntVector2> cells)
         {
             int minX = cells.Min(cell => cell.X);
             int minY = cells.Min(cell => cell.Y);
