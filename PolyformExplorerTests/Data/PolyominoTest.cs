@@ -215,7 +215,7 @@ namespace PolyformExplorer.Data.Tests
         }
 
         [Test]
-        public void Test_horizontal_reflection()
+        public void Test_reflection_across_vertical_axis()
         {
             Polyomino jTetromino = new(@"
                  #
@@ -229,11 +229,11 @@ namespace PolyformExplorer.Data.Tests
                 ##
             ");
 
-            Assert.That(jTetromino.ReflectAlongHorizontalAxis(), Is.EqualTo(expectedTetromino));
+            Assert.That(jTetromino.ReflectAcrossVerticalAxis(), Is.EqualTo(expectedTetromino));
         }
 
         [Test]
-        public void Test_vertical_reflection()
+        public void Test_reflection_across_horizontal_axis()
         {
             Polyomino jTetromino = new(@"
                  #
@@ -247,11 +247,11 @@ namespace PolyformExplorer.Data.Tests
                  #
             ");
 
-            Assert.That(jTetromino.ReflectAlongVerticalAxis(), Is.EqualTo(expectedTetromino));
+            Assert.That(jTetromino.ReflectAcrossHorizontalAxis(), Is.EqualTo(expectedTetromino));
         }
 
         [Test]
-        public void Test_main_diagonal_reflection()
+        public void Test_reflection_across_main_diagonal()
         {
             Polyomino jTetromino = new(@"
                  #
@@ -264,11 +264,11 @@ namespace PolyformExplorer.Data.Tests
                 #
             ");
 
-            Assert.That(jTetromino.ReflectAlongMainDiagonal(), Is.EqualTo(expectedTetromino));
+            Assert.That(jTetromino.ReflectAcrossMainDiagonal(), Is.EqualTo(expectedTetromino));
         }
 
         [Test]
-        public void Test_anti_diagonal_reflection()
+        public void Test_reflection_across_anti_diagonal()
         {
             Polyomino jTetromino = new(@"
                  #
@@ -281,7 +281,7 @@ namespace PolyformExplorer.Data.Tests
                 ###
             ");
 
-            Assert.That(jTetromino.ReflectAlongAntiDiagonal(), Is.EqualTo(expectedTetromino));
+            Assert.That(jTetromino.ReflectAcrossAntiDiagonal(), Is.EqualTo(expectedTetromino));
         }
 
         [TestCase(@"
@@ -309,45 +309,49 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(@"
               #
             ###
-         ", ExpectedResult = Polyomino.SymmetryType.None, TestName = "Symmetry: none")]
+         ", ExpectedResult = Polyomino.SymmetryType.None, TestName = "Symmetry (none)")]
         [TestCase(@"
             #
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAlongHorizontal, TestName = "Symmetry: Mirror along horizontal")]
+         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossHorizontal, TestName = "Symmetry (Mirror across horizontal)")]
         [TestCase(@"
             ###
              #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAlongVertical, TestName = "Symmetry: Mirror along vertical")]
+         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossVertical, TestName = "Symmetry (Mirror across vertical)")]
         [TestCase(@"
             #
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAlongMainDiagonal, TestName = "Symmetry: Mirror along main diagonal")]
+         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossMainDiagonal, TestName = "Symmetry (Mirror across main diagonal)")]
         [TestCase(@"
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAlongAntiDiagonal, TestName = "Symmetry: Mirror along antidiagonal")]
+         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossAntiDiagonal, TestName = "Symmetry (Mirror across antidiagonal)")]
         [TestCase(@"
             ##
              ##
-         ", ExpectedResult = Polyomino.SymmetryType.C2, TestName = "Symmetry: C2")]
+         ", ExpectedResult = Polyomino.SymmetryType.C2, TestName = "Symmetry (C2)")]
         [TestCase(@"
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.D2Orthogonal, TestName = "Symmetry: D2 along orthogonal axes")]
+         ", ExpectedResult = Polyomino.SymmetryType.D2Orthogonal, TestName = "Symmetry (D2 across orthogonal axes)")]
         [TestCase(@"
             ##
             ###
              ##
-         ", ExpectedResult = Polyomino.SymmetryType.D2Diagonal, TestName = "Symmetry: D2 along diagonals")]
+         ", ExpectedResult = Polyomino.SymmetryType.D2Diagonal, TestName = "Symmetry (D2 across diagonals)")]
         [TestCase(@"
              #
              ###
             ###
               #
-         ", ExpectedResult = Polyomino.SymmetryType.C4, TestName = "Symmetry: C4")]
+         ", ExpectedResult = Polyomino.SymmetryType.C4, TestName = "Symmetry (C4)")]
         [TestCase(@"
             #
-         ", ExpectedResult = Polyomino.SymmetryType.D4, TestName = "Symmetry: D4")]
+         ", ExpectedResult = Polyomino.SymmetryType.D4, TestName = "Symmetry (D4, monomino)")]
+        [TestCase(@"
+            ##
+            ##
+         ", ExpectedResult = Polyomino.SymmetryType.D4, TestName = "Symmetry (D4)")]
         public Polyomino.SymmetryType Polyomino_reports_correct_symmetry(string polyominoString)
         {
             Polyomino polyomino = new(polyominoString);

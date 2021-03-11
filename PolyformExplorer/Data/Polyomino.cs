@@ -10,10 +10,10 @@ namespace PolyformExplorer.Data
         public enum SymmetryType
         {
             None,
-            MirrorAlongHorizontal,
-            MirrorAlongVertical,
-            MirrorAlongMainDiagonal,
-            MirrorAlongAntiDiagonal,
+            MirrorAcrossHorizontal,
+            MirrorAcrossVertical,
+            MirrorAcrossMainDiagonal,
+            MirrorAcrossAntiDiagonal,
             C2,
             D2Orthogonal,
             D2Diagonal,
@@ -99,7 +99,7 @@ namespace PolyformExplorer.Data
         {
             if (Has4FoldRotationalSymmetry())
             {
-                if (HasMirrorSymmetryAlongHorizontal())
+                if (HasMirrorSymmetryAcrossHorizontal())
                     return SymmetryType.D4;
                 else
                     return SymmetryType.C4;
@@ -107,22 +107,22 @@ namespace PolyformExplorer.Data
 
             if (Has2FoldRotationalSymmetry())
             {
-                if (HasMirrorSymmetryAlongHorizontal())
+                if (HasMirrorSymmetryAcrossHorizontal())
                     return SymmetryType.D2Orthogonal;
-                else if (HasMirrorSymmetryAlongMainDiagonal())
+                else if (HasMirrorSymmetryAcrossMainDiagonal())
                     return SymmetryType.D2Diagonal;
                 else
                     return SymmetryType.C2;
             }
 
-            if (HasMirrorSymmetryAlongHorizontal())
-                return SymmetryType.MirrorAlongVertical;
-            else if (HasMirrorSymmetryAlongVertical())
-                return SymmetryType.MirrorAlongHorizontal;
-            else if (HasMirrorSymmetryAlongMainDiagonal())
-                return SymmetryType.MirrorAlongMainDiagonal;
-            else if (HasMirrorSymmetryAlongAntiDiagonal())
-                return SymmetryType.MirrorAlongAntiDiagonal;
+            if (HasMirrorSymmetryAcrossHorizontal())
+                return SymmetryType.MirrorAcrossVertical;
+            else if (HasMirrorSymmetryAcrossVertical())
+                return SymmetryType.MirrorAcrossHorizontal;
+            else if (HasMirrorSymmetryAcrossMainDiagonal())
+                return SymmetryType.MirrorAcrossMainDiagonal;
+            else if (HasMirrorSymmetryAcrossAntiDiagonal())
+                return SymmetryType.MirrorAcrossAntiDiagonal;
 
             return SymmetryType.None;
         }
@@ -138,13 +138,13 @@ namespace PolyformExplorer.Data
         private bool Has2FoldRotationalSymmetry()
             => cells.All(c => Contains(new IntVector2(Width - c.X - 1, Height - c.Y - 1)));
 
-        private bool HasMirrorSymmetryAlongHorizontal()
+        private bool HasMirrorSymmetryAcrossHorizontal()
             => cells.All(c => Contains(c with { X = Width - c.X - 1 }));
 
-        private bool HasMirrorSymmetryAlongVertical()
+        private bool HasMirrorSymmetryAcrossVertical()
             => cells.All(c => Contains(c with { Y = Height - c.Y - 1 }));
 
-        private bool HasMirrorSymmetryAlongMainDiagonal()
+        private bool HasMirrorSymmetryAcrossMainDiagonal()
         {
             if (Width != Height)
                 return false;
@@ -152,7 +152,7 @@ namespace PolyformExplorer.Data
             return cells.All(c => Contains(new IntVector2(c.Y, c.X)));
         }
 
-        private bool HasMirrorSymmetryAlongAntiDiagonal()
+        private bool HasMirrorSymmetryAcrossAntiDiagonal()
         {
             if (Width != Height)
                 return false;
@@ -192,16 +192,16 @@ namespace PolyformExplorer.Data
         public Polyomino Rotate180()
             => new Polyomino(cells.Select(c => -c));
 
-        public Polyomino ReflectAlongHorizontalAxis()
+        public Polyomino ReflectAcrossVerticalAxis()
             => new Polyomino(cells.Select(c => c with { X = -c.X }));
 
-        public Polyomino ReflectAlongVerticalAxis()
+        public Polyomino ReflectAcrossHorizontalAxis()
             => new Polyomino(cells.Select(c => c with { Y = -c.Y }));
 
-        public Polyomino ReflectAlongMainDiagonal()
+        public Polyomino ReflectAcrossMainDiagonal()
             => new Polyomino(cells.Select(c => new IntVector2(c.Y, c.X)));
 
-        public Polyomino ReflectAlongAntiDiagonal()
+        public Polyomino ReflectAcrossAntiDiagonal()
             => new Polyomino(cells.Select(c => new IntVector2(-c.Y, -c.X)));
 
         public bool Equals(Polyomino? other)
