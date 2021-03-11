@@ -77,6 +77,19 @@ namespace PolyformExplorer.Data.Tests
             return new IntVector2(x, y).Magnitude;
         }
 
+        [TestCase(0, 0)]
+        [TestCase(1, 2)]
+        [TestCase(1, -2)]
+        [TestCase(-1, 2)]
+        public void Test_unary_minus(int x, int y)
+        {
+            IntVector2 vectorA = new(x, y);
+
+            IntVector2 expected = new(-x, -y);
+
+            Assert.That(-vectorA, Is.EqualTo(expected));
+        }
+
         [TestCase(0, 0, 0, 0)]
         [TestCase(1, 2, 3, 4)]
         [TestCase(1, -2, -3, 4)]

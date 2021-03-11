@@ -10,8 +10,10 @@ namespace PolyformExplorer.Data
         public enum Symmetry
         {
             None,
-            MirrorOrthogonal,
-            MirrorDiagonal,
+            MirrorHorizontal,
+            MirrorVertical,
+            MirrorMainDiagonal,
+            MirrorAntiDiagonal,
             C2,
             D2Orthogonal,
             D2Diagonal,
@@ -36,6 +38,36 @@ namespace PolyformExplorer.Data
 
             IEnumerable<IntVector2> normalizedCells = Normalize(cells);
             this.cells = ImmutableSortedSet.CreateRange(new IntVector2Comparer(), normalizedCells);
+        }
+
+        // Convenience constructor, e.g. for testing. Takes a multiline representation
+        // of the polyomino, using '#' to indicate placement of cells. Example for
+        // T tetromino:
+        //
+        // ###
+        //  #
+        public Polyomino(string stringRepresentation)
+            : this (StringToCells(stringRepresentation))
+        { }
+
+        private static IEnumerable<IntVector2> StringToCells(string stringRepresentation)
+        {
+            string[] lines = stringRepresentation.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            );
+
+            List<IntVector2> cells = new();
+
+            for (int y = 0; y < lines.Length; ++y)
+            {
+                string line = lines[y];
+                for (int x = 0; x < line.Length; ++x)
+                    if (line[x] == '#')
+                        cells.Add(new IntVector2(x, -y));
+            }
+
+            return cells;
         }
 
         // Implemented via BFT
@@ -84,6 +116,27 @@ namespace PolyformExplorer.Data
                 hash = hash * 7 + cell.GetHashCode();
 
             return hash;
-        }    
+        }
+
+        public Polyomino RotateCW() 
+            => new Polyomino(cells.Select(c => new IntVector2(c.Y, -c.X)));
+
+        public Polyomino RotateCCW()
+            => new Polyomino(cells.Select(c => new IntVector2(-c.Y, c.X)));
+
+        public Polyomino Rotate180()
+            => new Polyomino(cells.Select(c => -c));
+
+        public Polyomino ReflectHorizontally()
+            => new Polyomino(cells.Select(c => c with { X = -c.X }));
+
+        public Polyomino ReflectVertically()
+            => new Polyomino(cells.Select(c => c with { Y = -c.Y }));
+
+        public Polyomino ReflectAlongMainDiagonal()
+            => new Polyomino(cells.Select(c => new IntVector2(c.Y, c.X)));
+
+        public Polyomino ReflectAlongAntiDiagonal()
+            => new Polyomino(cells.Select(c => new IntVector2(-c.Y, -c.X)));
     }
 }

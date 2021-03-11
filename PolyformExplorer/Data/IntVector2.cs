@@ -33,6 +33,9 @@ namespace PolyformExplorer.Data
 
         public float Magnitude => MathF.Sqrt(SquaredMagnitude);
 
+        public static IntVector2 operator -(IntVector2 vector)
+            => new(-vector.X, -vector.Y);
+
         public static IntVector2 operator +(IntVector2 vectorA, IntVector2 vectorB)
             => new(vectorA.X + vectorB.X, vectorA.Y + vectorB.Y);
 
