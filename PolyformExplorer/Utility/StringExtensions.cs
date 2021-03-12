@@ -7,6 +7,9 @@ namespace PolyformExplorer.Utility
 {
     internal static class StringExtensions
     {
+        public static string NormalizeNewlines(this string multilineString)
+            => Regex.Replace(multilineString, "\r\n|\n|\r", Environment.NewLine);
+
         public static string TrimCommonIndentation(this string multilineString, bool trimEmptyLines = false)
         {
             string[] lines = multilineString.Split(

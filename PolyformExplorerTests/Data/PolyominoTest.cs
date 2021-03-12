@@ -162,6 +162,81 @@ namespace PolyformExplorer.Data.Tests
             Assert.That(jTetromino2.GetHashCode(), Is.Not.EqualTo(lTetromino.GetHashCode()));
         }
 
+        [TestCase(@"
+           #
+         ", 1, 1)]
+        [TestCase(@"
+            #
+            #
+           ##
+         ", 2, 3)]
+        [TestCase(@"
+               #
+            #  #
+            ####
+           ##
+         ", 5, 4)]
+        public void Polyomino_reports_correct_dimensions(string polyominoString, int width, int height)
+        {
+            Polyomino polyomino = new(polyominoString);
+
+            Assert.That(polyomino.Width, Is.EqualTo(width));
+            Assert.That(polyomino.Height, Is.EqualTo(height));
+        }
+
+        [TestCase(@"
+              #
+            ###
+         ", ExpectedResult = D4Subgroup.Identity, TestName = "Symmetry (none)")]
+        [TestCase(@"
+            #
+            ##
+            #
+         ", ExpectedResult = D4Subgroup.D1AcrossHorizontal, TestName = "Symmetry (D1 across horizontal)")]
+        [TestCase(@"
+            ###
+             #
+         ", ExpectedResult = D4Subgroup.D1AcrossVertical, TestName = "Symmetry (D1 across vertical)")]
+        [TestCase(@"
+            #
+            ##
+         ", ExpectedResult = D4Subgroup.D1AcrossMainDiagonal, TestName = "Symmetry (D1 across main diagonal)")]
+        [TestCase(@"
+            ##
+            #
+         ", ExpectedResult = D4Subgroup.D1AcrossAntiDiagonal, TestName = "Symmetry (D1 across antidiagonal)")]
+        [TestCase(@"
+            ##
+             ##
+         ", ExpectedResult = D4Subgroup.C2, TestName = "Symmetry (C2)")]
+        [TestCase(@"
+            ##
+         ", ExpectedResult = D4Subgroup.D2Orthogonal, TestName = "Symmetry (D2 across orthogonal axes)")]
+        [TestCase(@"
+            ##
+            ###
+             ##
+         ", ExpectedResult = D4Subgroup.D2Diagonal, TestName = "Symmetry (D2 across diagonals)")]
+        [TestCase(@"
+             #
+             ###
+            ###
+              #
+         ", ExpectedResult = D4Subgroup.C4, TestName = "Symmetry (C4)")]
+        [TestCase(@"
+            #
+         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4, monomino)")]
+        [TestCase(@"
+            ##
+            ##
+         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4)")]
+        public D4Subgroup Polyomino_reports_correct_symmetry(string polyominoString)
+        {
+            Polyomino polyomino = new(polyominoString);
+
+            return polyomino.Symmetry;
+        }
+
         [Test]
         public void Test_clockwise_rotation()
         {
@@ -282,81 +357,6 @@ namespace PolyformExplorer.Data.Tests
             ");
 
             Assert.That(jTetromino.ReflectAcrossAntiDiagonal(), Is.EqualTo(expectedTetromino));
-        }
-
-        [TestCase(@"
-           #
-         ", 1, 1)]
-        [TestCase(@"
-            #
-            #
-           ##
-         ", 2, 3)]
-        [TestCase(@"
-               #
-            #  #
-            ####
-           ##
-         ", 5, 4)]
-        public void Polyomino_reports_correct_dimensions(string polyominoString, int width, int height)
-        {
-            Polyomino polyomino = new(polyominoString);
-
-            Assert.That(polyomino.Width, Is.EqualTo(width));
-            Assert.That(polyomino.Height, Is.EqualTo(height));
-        }
-
-        [TestCase(@"
-              #
-            ###
-         ", ExpectedResult = D4Subgroup.Identity, TestName = "Symmetry (none)")]
-        [TestCase(@"
-            #
-            ##
-            #
-         ", ExpectedResult = D4Subgroup.D1AcrossHorizontal, TestName = "Symmetry (D1 across horizontal)")]
-        [TestCase(@"
-            ###
-             #
-         ", ExpectedResult = D4Subgroup.D1AcrossVertical, TestName = "Symmetry (D1 across vertical)")]
-        [TestCase(@"
-            #
-            ##
-         ", ExpectedResult = D4Subgroup.D1AcrossMainDiagonal, TestName = "Symmetry (D1 across main diagonal)")]
-        [TestCase(@"
-            ##
-            #
-         ", ExpectedResult = D4Subgroup.D1AcrossAntiDiagonal, TestName = "Symmetry (D1 across antidiagonal)")]
-        [TestCase(@"
-            ##
-             ##
-         ", ExpectedResult = D4Subgroup.C2, TestName = "Symmetry (C2)")]
-        [TestCase(@"
-            ##
-         ", ExpectedResult = D4Subgroup.D2Orthogonal, TestName = "Symmetry (D2 across orthogonal axes)")]
-        [TestCase(@"
-            ##
-            ###
-             ##
-         ", ExpectedResult = D4Subgroup.D2Diagonal, TestName = "Symmetry (D2 across diagonals)")]
-        [TestCase(@"
-             #
-             ###
-            ###
-              #
-         ", ExpectedResult = D4Subgroup.C4, TestName = "Symmetry (C4)")]
-        [TestCase(@"
-            #
-         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4, monomino)")]
-        [TestCase(@"
-            ##
-            ##
-         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4)")]
-        public D4Subgroup Polyomino_reports_correct_symmetry(string polyominoString)
-        {
-            Polyomino polyomino = new(polyominoString);
-            
-            return polyomino.Symmetry;
         }
     }
 }
