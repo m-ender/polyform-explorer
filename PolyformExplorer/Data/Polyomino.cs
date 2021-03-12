@@ -7,20 +7,6 @@ namespace PolyformExplorer.Data
 {
     internal sealed record Polyomino : IEquatable<Polyomino>
     {
-        public enum SymmetryType
-        {
-            None,
-            D1AcrossHorizontal,
-            D1AcrossVertical,
-            D1AcrossMainDiagonal,
-            D1AcrossAntiDiagonal,
-            C2,
-            D2Orthogonal,
-            D2Diagonal,
-            C4,
-            D4,
-        };
-
         private readonly ImmutableSortedSet<IntVector2> cells;
 
         public int Order => cells.Count;
@@ -28,7 +14,7 @@ namespace PolyformExplorer.Data
         public int Width { get; }
         public int Height { get; }
 
-        public SymmetryType Symmetry { get; }
+        public D4Subgroup Symmetry { get; }
 
         public Polyomino()
             : this(new[] { IntVector2.Zero })
@@ -95,36 +81,36 @@ namespace PolyformExplorer.Data
             return (width, height);
         }
 
-        private SymmetryType ComputeSymmetry()
+        private D4Subgroup ComputeSymmetry()
         {
             if (Has4FoldRotationalSymmetry())
             {
                 if (HasMirrorSymmetryAcrossHorizontal())
-                    return SymmetryType.D4;
+                    return D4Subgroup.D4;
                 else
-                    return SymmetryType.C4;
+                    return D4Subgroup.C4;
             }
 
             if (Has2FoldRotationalSymmetry())
             {
                 if (HasMirrorSymmetryAcrossHorizontal())
-                    return SymmetryType.D2Orthogonal;
+                    return D4Subgroup.D2Orthogonal;
                 else if (HasMirrorSymmetryAcrossMainDiagonal())
-                    return SymmetryType.D2Diagonal;
+                    return D4Subgroup.D2Diagonal;
                 else
-                    return SymmetryType.C2;
+                    return D4Subgroup.C2;
             }
 
             if (HasMirrorSymmetryAcrossHorizontal())
-                return SymmetryType.D1AcrossVertical;
+                return D4Subgroup.D1AcrossVertical;
             else if (HasMirrorSymmetryAcrossVertical())
-                return SymmetryType.D1AcrossHorizontal;
+                return D4Subgroup.D1AcrossHorizontal;
             else if (HasMirrorSymmetryAcrossMainDiagonal())
-                return SymmetryType.D1AcrossMainDiagonal;
+                return D4Subgroup.D1AcrossMainDiagonal;
             else if (HasMirrorSymmetryAcrossAntiDiagonal())
-                return SymmetryType.D1AcrossAntiDiagonal;
+                return D4Subgroup.D1AcrossAntiDiagonal;
 
-            return SymmetryType.None;
+            return D4Subgroup.Identity;
         }
 
         private bool Has4FoldRotationalSymmetry()

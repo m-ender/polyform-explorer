@@ -309,50 +309,50 @@ namespace PolyformExplorer.Data.Tests
         [TestCase(@"
               #
             ###
-         ", ExpectedResult = Polyomino.SymmetryType.None, TestName = "Symmetry (none)")]
+         ", ExpectedResult = D4Subgroup.Identity, TestName = "Symmetry (none)")]
         [TestCase(@"
             #
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossHorizontal, TestName = "Symmetry (D1 across horizontal)")]
+         ", ExpectedResult = D4Subgroup.D1AcrossHorizontal, TestName = "Symmetry (D1 across horizontal)")]
         [TestCase(@"
             ###
              #
-         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossVertical, TestName = "Symmetry (D1 across vertical)")]
+         ", ExpectedResult = D4Subgroup.D1AcrossVertical, TestName = "Symmetry (D1 across vertical)")]
         [TestCase(@"
             #
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossMainDiagonal, TestName = "Symmetry (D1 across main diagonal)")]
+         ", ExpectedResult = D4Subgroup.D1AcrossMainDiagonal, TestName = "Symmetry (D1 across main diagonal)")]
         [TestCase(@"
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossAntiDiagonal, TestName = "Symmetry (D1 across antidiagonal)")]
+         ", ExpectedResult = D4Subgroup.D1AcrossAntiDiagonal, TestName = "Symmetry (D1 across antidiagonal)")]
         [TestCase(@"
             ##
              ##
-         ", ExpectedResult = Polyomino.SymmetryType.C2, TestName = "Symmetry (C2)")]
+         ", ExpectedResult = D4Subgroup.C2, TestName = "Symmetry (C2)")]
         [TestCase(@"
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.D2Orthogonal, TestName = "Symmetry (D2 across orthogonal axes)")]
+         ", ExpectedResult = D4Subgroup.D2Orthogonal, TestName = "Symmetry (D2 across orthogonal axes)")]
         [TestCase(@"
             ##
             ###
              ##
-         ", ExpectedResult = Polyomino.SymmetryType.D2Diagonal, TestName = "Symmetry (D2 across diagonals)")]
+         ", ExpectedResult = D4Subgroup.D2Diagonal, TestName = "Symmetry (D2 across diagonals)")]
         [TestCase(@"
              #
              ###
             ###
               #
-         ", ExpectedResult = Polyomino.SymmetryType.C4, TestName = "Symmetry (C4)")]
+         ", ExpectedResult = D4Subgroup.C4, TestName = "Symmetry (C4)")]
         [TestCase(@"
             #
-         ", ExpectedResult = Polyomino.SymmetryType.D4, TestName = "Symmetry (D4, monomino)")]
+         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4, monomino)")]
         [TestCase(@"
             ##
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.D4, TestName = "Symmetry (D4)")]
-        public Polyomino.SymmetryType Polyomino_reports_correct_symmetry(string polyominoString)
+         ", ExpectedResult = D4Subgroup.D4, TestName = "Symmetry (D4)")]
+        public D4Subgroup Polyomino_reports_correct_symmetry(string polyominoString)
         {
             Polyomino polyomino = new(polyominoString);
             
