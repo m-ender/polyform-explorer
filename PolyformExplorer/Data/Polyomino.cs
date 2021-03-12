@@ -10,10 +10,10 @@ namespace PolyformExplorer.Data
         public enum SymmetryType
         {
             None,
-            MirrorAcrossHorizontal,
-            MirrorAcrossVertical,
-            MirrorAcrossMainDiagonal,
-            MirrorAcrossAntiDiagonal,
+            D1AcrossHorizontal,
+            D1AcrossVertical,
+            D1AcrossMainDiagonal,
+            D1AcrossAntiDiagonal,
             C2,
             D2Orthogonal,
             D2Diagonal,
@@ -116,13 +116,13 @@ namespace PolyformExplorer.Data
             }
 
             if (HasMirrorSymmetryAcrossHorizontal())
-                return SymmetryType.MirrorAcrossVertical;
+                return SymmetryType.D1AcrossVertical;
             else if (HasMirrorSymmetryAcrossVertical())
-                return SymmetryType.MirrorAcrossHorizontal;
+                return SymmetryType.D1AcrossHorizontal;
             else if (HasMirrorSymmetryAcrossMainDiagonal())
-                return SymmetryType.MirrorAcrossMainDiagonal;
+                return SymmetryType.D1AcrossMainDiagonal;
             else if (HasMirrorSymmetryAcrossAntiDiagonal())
-                return SymmetryType.MirrorAcrossAntiDiagonal;
+                return SymmetryType.D1AcrossAntiDiagonal;
 
             return SymmetryType.None;
         }

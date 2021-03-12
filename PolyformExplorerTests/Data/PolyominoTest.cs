@@ -314,19 +314,19 @@ namespace PolyformExplorer.Data.Tests
             #
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossHorizontal, TestName = "Symmetry (Mirror across horizontal)")]
+         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossHorizontal, TestName = "Symmetry (D1 across horizontal)")]
         [TestCase(@"
             ###
              #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossVertical, TestName = "Symmetry (Mirror across vertical)")]
+         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossVertical, TestName = "Symmetry (D1 across vertical)")]
         [TestCase(@"
             #
             ##
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossMainDiagonal, TestName = "Symmetry (Mirror across main diagonal)")]
+         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossMainDiagonal, TestName = "Symmetry (D1 across main diagonal)")]
         [TestCase(@"
             ##
             #
-         ", ExpectedResult = Polyomino.SymmetryType.MirrorAcrossAntiDiagonal, TestName = "Symmetry (Mirror across antidiagonal)")]
+         ", ExpectedResult = Polyomino.SymmetryType.D1AcrossAntiDiagonal, TestName = "Symmetry (D1 across antidiagonal)")]
         [TestCase(@"
             ##
              ##
