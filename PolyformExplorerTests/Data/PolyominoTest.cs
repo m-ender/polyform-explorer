@@ -358,5 +358,40 @@ namespace PolyformExplorer.Data.Tests
 
             Assert.That(jTetromino.ReflectAcrossAntiDiagonal(), Is.EqualTo(expectedTetromino));
         }
+
+        [Test]
+        public void Grow_polyomino_by_one_cell()
+        {
+            Polyomino jTetromino = new(@"
+                 #
+                 #
+                ##
+            ");
+
+            Polyomino expectedPentomino = new(@"
+                 #
+                 ##
+                ##
+            ");
+
+            Assert.That(jTetromino.GrowBy(new IntVector2(2, 1)), Is.EqualTo(expectedPentomino));
+        }
+
+        [Test]
+        public void Polyomino_enumerates_its_cells()
+        {
+            Polyomino jTetromino = new(@"
+                 #
+                 #
+                ##
+            ");
+
+            List<IntVector2> expectedCells = new()
+            {
+                new(0, 0), new(1, 0), new(1, 1), new(1, 2),
+            };
+
+            Assert.That(jTetromino, Is.EquivalentTo(expectedCells));
+        }
     }
 }

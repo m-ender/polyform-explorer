@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
 namespace PolyformExplorer.Data
 {
-    internal sealed record Polyomino : IEquatable<Polyomino>
+    internal sealed record Polyomino : IEquatable<Polyomino>, IEnumerable<IntVector2>
     {
         private readonly ImmutableSortedSet<IntVector2> cells;
 
@@ -190,6 +191,9 @@ namespace PolyformExplorer.Data
         public Polyomino ReflectAcrossAntiDiagonal()
             => new Polyomino(cells.Select(c => new IntVector2(-c.Y, -c.X)));
 
+        public Polyomino GrowBy(IntVector2 newCell) 
+            => new Polyomino(cells.Append(newCell));
+
         public bool Equals(Polyomino? other)
             => other is not null && cells.SetEquals(other.cells);
 
@@ -203,5 +207,11 @@ namespace PolyformExplorer.Data
 
             return hash;
         }
+
+        public IEnumerator<IntVector2> GetEnumerator() 
+            => cells.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() 
+            => GetEnumerator();
     }
 }
